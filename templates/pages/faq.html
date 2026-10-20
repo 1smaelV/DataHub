@@ -1,0 +1,35 @@
+<!-- ===== FAQ ===== -->
+<div class="page" id="page-faq">
+  <div class="page-header">
+    <div class="page-title">Frequently Asked Questions (FAQ)</div>
+    <div class="page-sub">Answers to common questions about Databricks, environments, and internal workflows</div>
+  </div>
+
+  <div class="alert alert-info">
+    <i data-lucide="lightbulb" class="icon-md" style="color:var(--accent3)"></i>
+    <span>Can't find what you're looking for? Reach out on Slack at <strong>#databricks-coe</strong> or consult the <a href="#" onclick="showPage('glossary')" style="color:var(--accent2);text-decoration:underline">Glossary</a>.</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I request access to a Databricks Workspace? <span class="faq-chevron">▼</span></div>
+      <div class="faq-a">Access requests are handled through our internal Identity &amp; Access Management portal. Submit a ticket requesting the appropriate role (Developer, Data Analyst, or Data Engineer) for your specific project cluster.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the difference between Serverless and Classic Compute? <span class="faq-chevron">▼</span></div>
+      <div class="faq-a">Serverless compute provides instant startup (seconds instead of minutes), zero infrastructure management, and automatic elasticity managed by Databricks. Classic compute runs on dedicated VMs in our cloud tenant and requires sizing and warm-up time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How should I organize tables in Unity Catalog? <span class="faq-chevron">▼</span></div>
+      <div class="faq-a">Follow the 3-level namespace: <code>catalog.schema.table</code>. Typically: <code>[environment]_[domain].[layer].[entity]</code>, for example: <code>prod_analytics.silver.sales_orders</code>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the deployment procedure for Databricks Apps? <span class="faq-chevron">▼</span></div>
+      <div class="faq-a">Use the Databricks CLI v0.200+: first synchronize your code with <code>databricks sync --watch . &lt;workspace_path&gt;</code>, then deploy with <code>databricks apps deploy &lt;app_name&gt; --source-code-path &lt;workspace_path&gt;</code>.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Where can I get vouchers for Databricks Certifications? <span class="faq-chevron">▼</span></div>
+      <div class="faq-a">Visit the <a href="#" onclick="showPage('certifications')" style="color:var(--accent);text-decoration:underline">Certifications</a> tab to learn about our corporate enablement roadmap and apply for exam vouchers supported by the CoE.</div>
+    </div>
+  </div>
+</div>

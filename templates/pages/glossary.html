@@ -1,0 +1,88 @@
+<div class="page" id="page-glossary">
+    <div class="page-header">
+      <div class="page-title">Glossary</div>
+      <div class="page-sub">Key terms and definitions for the Databricks platform and internal framework</div>
+    </div>
+
+    <div class="alert alert-info">
+      <span>ℹ️</span>
+      <span>Terms are listed alphabetically. Click any term to expand its definition.</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Apache Spark <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Open-source distributed computing engine optimized for large-scale data processing. Databricks is built on top of Spark and extends it with cloud-native optimizations, Delta Lake integration and collaborative notebooks.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Auto Loader <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Databricks feature that incrementally and efficiently processes new data files as they arrive in cloud storage (ADLS, S3, GCS). Uses checkpoint-based tracking to ensure exactly-once ingestion into Delta Lake without manual file listing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Bronze Layer <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">First layer of the Medallion architecture. Contains raw, unprocessed data ingested from source systems. Data is stored as-is with minimal transformations — only schema enforcement and metadata additions. Acts as the single source of truth for historical replay.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Catalog (Unity Catalog) <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Top-level namespace in Unity Catalog. Contains schemas (databases) which contain tables, views and functions. Our environment uses separate catalogs per tier: dev_catalog, staging_catalog, and prod_catalog.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Cluster <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Set of computation resources (driver + worker nodes) on which notebooks and jobs run. Two types: All-Purpose (interactive, shared) and Job Clusters (ephemeral, spun up per job run). Job clusters are preferred in production for cost and isolation reasons.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">DBU (Databricks Unit) <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Unit of processing capability used to measure and bill Databricks usage. DBU consumption depends on the cluster type (Standard, Premium, Jobs) and node size. Monitoring DBU spend is key to controlling cloud costs across environments.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Delta Lake <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Open-source storage layer that brings ACID transactions, scalable metadata handling, and time travel to data lakes. All tables in our Medallion architecture are Delta tables. Stored as Parquet files + a transaction log (_delta_log) on cloud storage.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Delta Live Tables (DLT) <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Declarative ETL framework on Databricks. You define what data should look like (using SQL or Python decorators), and DLT manages the orchestration, error handling, retries and data quality expectations automatically. Our standard for new pipeline development since v2.1.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Gold Layer <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Third and final layer of the Medallion architecture. Contains business-ready, aggregated and denormalized data optimized for reporting and analytics consumption. Tables in this layer are typically directly queried by Power BI, Tableau or Databricks SQL.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Lakehouse <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Data architecture paradigm that combines the flexibility and low cost of data lakes with the reliability and performance of data warehouses. Databricks pioneered this concept. Key properties: open formats (Parquet/Delta), ACID transactions, SQL support, and ML-ready.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Medallion Architecture <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Data design pattern that organizes data into three progressive quality layers: Bronze (raw), Silver (cleaned & enriched), and Gold (business-ready aggregates). Our company standard since v2.0. Enables incremental data quality improvement and simplifies pipeline debugging.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">MLflow <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Open-source platform for managing the ML lifecycle, natively integrated in Databricks. Components: Tracking (log experiments, params, metrics), Projects (package code), Models (register & version), Registry (promote models across Staging → Production → Archived).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Notebook <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Interactive document combining code (Python, SQL, Scala, R), markdown text, and visualizations. The primary development interface in Databricks. Notebooks can be version-controlled via Git integration, parameterized with widgets, and run as jobs.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Silver Layer <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Second layer of the Medallion architecture. Contains cleansed, deduplicated, and enriched data from Bronze. Business logic is applied here: data type casting, null handling, joins, and standardization. Serves as the foundation for Gold aggregations and ML feature engineering.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Unity Catalog <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Centralized governance solution for all data assets across Databricks workspaces. Provides fine-grained access control (table, column, row level), data lineage tracking, and audit logs. Organized as: Catalog → Schema → Table/View/Function. Our governance standard since v2.1.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Workflow / Job <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Databricks Workflows is the native orchestration service for scheduling and automating notebook and DLT pipeline runs. A Job defines tasks, dependencies, cluster config, schedule (cron), and retry policies. Preferred over external schedulers like Airflow for Databricks-native workloads.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Z-Order <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Delta Lake optimization technique that co-locates related data in the same set of files based on one or more columns. Dramatically reduces the amount of data scanned on filtered queries. Example: OPTIMIZE table ZORDER BY (customer_id, date). Apply to high-cardinality filter columns in Gold layer tables.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Databricks Asset Bundles (DAB) <span class="faq-chevron">▼</span></div>
+        <div class="faq-a">Infrastructure-as-code framework for Databricks. Allows defining jobs, pipelines, clusters and permissions in YAML and deploying them via CLI or CI/CD. Our standard deployment method for Staging and Production environments since v2.1.</div>
+      </div>
+
+    </div>
+  </div>

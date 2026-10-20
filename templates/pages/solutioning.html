@@ -1,0 +1,64 @@
+<div class="page" id="page-solutioning">
+    <div class="page-header">
+      <div class="page-title">Solutioning</div>
+      <div class="page-sub">Translating customer requirements into a Databricks solution design</div>
+    </div>
+    <div class="section-header">
+      <div class="section-title">Solutioning Process</div>
+      <div class="section-tag">METHODOLOGY</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot active"></div>
+        <div class="timeline-version">PHASE 1</div>
+        <div class="timeline-title">Requirements Gathering</div>
+        <div class="timeline-desc">Conduct structured workshops to capture functional and non-functional requirements: data sources, volumes, latency SLAs, security, compliance, and integration needs.</div>
+        <div class="timeline-tags"><span class="tag tag-cyan">Workshops</span><span class="tag tag-gray">Stakeholders</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">PHASE 2</div>
+        <div class="timeline-title">Architecture Scoping</div>
+        <div class="timeline-desc">Define the Lakehouse architecture layers, cluster strategy, storage layout (ADLS, S3, GCS), and integration points with upstream/downstream systems.</div>
+        <div class="timeline-tags"><span class="tag tag-red">Lakehouse</span><span class="tag tag-yellow">Cloud Design</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">PHASE 3</div>
+        <div class="timeline-title">Solution Proposal</div>
+        <div class="timeline-desc">Produce a formal Solution Design Document (SDD) with architecture diagrams, component descriptions, licensing estimate, and a high-level delivery roadmap.</div>
+        <div class="timeline-tags"><span class="tag tag-cyan">SDD</span><span class="tag tag-gray">SOW Input</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">PHASE 4</div>
+        <div class="timeline-title">Review & Sign-off</div>
+        <div class="timeline-desc">Present the solution to the customer's technical and business stakeholders. Collect feedback, refine, and obtain written approval before moving to Design.</div>
+        <div class="timeline-tags"><span class="tag tag-yellow">Approval</span><span class="tag tag-red">Handoff</span></div>
+      </div>
+    </div>
+    <div class="section-header" style="margin-top:8px">
+      <div class="section-title">Solution Patterns</div>
+      <div class="section-tag">REFERENCE</div>
+    </div>
+    <div class="cards-grid">
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(255,54,33,0.1)"><i data-lucide="landmark" class="icon-sm" style="color:var(--accent)"></i></div>
+        <h3>Medallion Lakehouse</h3>
+        <p>Bronze / Silver / Gold pipeline architecture for batch and streaming workloads. Standard pattern for analytics and reporting use cases.</p>
+        <div class="card-footer"><span class="card-meta">PATTERN · ANALYTICS</span></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(0,199,199,0.1)"><i data-lucide="bot" class="icon-sm"></i></div>
+        <h3>ML Platform</h3>
+        <p>Feature engineering on Delta Lake, MLflow tracking, model registry and batch/real-time serving. Suitable for churn, fraud, recommendation use cases.</p>
+        <div class="card-footer"><span class="card-meta">PATTERN · ML</span></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(255,181,71,0.1)"><i data-lucide="zap" class="icon-sm" style="color:var(--accent2)"></i></div>
+        <h3>Real-time Streaming</h3>
+        <p>Kafka + Spark Structured Streaming into Delta Live Tables. For IoT, clickstream, financial transactions and operational monitoring.</p>
+        <div class="card-footer"><span class="card-meta">PATTERN · STREAMING</span></div>
+      </div>
+    </div>
+  </div>

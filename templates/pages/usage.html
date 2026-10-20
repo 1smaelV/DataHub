@@ -1,0 +1,76 @@
+<div class="page" id="page-usage">
+    <div class="page-header">
+      <div class="page-title">How it's used internally</div>
+      <div class="page-sub">Practical guide for collaborators</div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Workspace connection</div>
+    </div>
+    <div class="card" style="cursor:default;margin-bottom:20px">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Log in with your corporate SSO credentials:</p>
+      <div class="code-block">
+        <div class="code-lang">URL</div>
+        <span class="str">https://adb-xxxx.azuredatabricks.net</span><br>
+        <span class="comment"># Login with your @yourcompany.com account</span>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Example: Bronze → Silver Pipeline</div>
+    </div>
+    <div class="card" style="cursor:default;margin-bottom:20px">
+      <div class="code-block">
+        <div class="code-lang">Python</div>
+        <span class="comment"># Read Bronze layer</span><br>
+        <span class="var">df_bronze</span> = <span class="fn">spark</span>.read.format(<span class="str">"delta"</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.load(<span class="str">"/mnt/bronze/sales/raw"</span>)<br><br>
+        <span class="comment"># Silver transformation</span><br>
+        <span class="var">df_silver</span> = <span class="var">df_bronze</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.dropDuplicates([<span class="str">"transaction_id"</span>])<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.filter(<span class="var">col</span>(<span class="str">"status"</span>) == <span class="str">"active"</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.withColumn(<span class="str">"proc_date"</span>, <span class="fn">current_timestamp</span>())<br><br>
+        <span class="comment"># Write Silver</span><br>
+        <span class="var">df_silver</span>.write.format(<span class="str">"delta"</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.mode(<span class="str">"overwrite"</span>)<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;.save(<span class="str">"/mnt/silver/sales/clean"</span>)
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Team conventions</div>
+    </div>
+    <div class="card" style="cursor:default">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Convention</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Table name</td>
+            <td>snake_case</td>
+            <td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">monthly_sales</code></td>
+          </tr>
+          <tr>
+            <td>ID column</td>
+            <td>id_[entity]</td>
+            <td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">id_customer</code></td>
+          </tr>
+          <tr>
+            <td>Notebooks</td>
+            <td>[layer]_[domain]_[action]</td>
+            <td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">silver_sales_cleansing</code></td>
+          </tr>
+          <tr>
+            <td>Jobs</td>
+            <td>[env]_[pipeline]</td>
+            <td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">prod_sales_daily</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

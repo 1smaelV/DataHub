@@ -1,0 +1,56 @@
+<div class="page" id="page-delivery">
+    <div class="page-header">
+      <div class="page-title">Delivery</div>
+      <div class="page-sub">Execution standards, sprint rituals and go-live checklist</div>
+    </div>
+    <div class="section-header">
+      <div class="section-title">Delivery Lifecycle</div>
+      <div class="section-tag">AGILE</div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot active"></div>
+        <div class="timeline-version">SPRINT 0</div>
+        <div class="timeline-title">Environment Setup & Kickoff</div>
+        <div class="timeline-desc">Provision Dev/Staging/Prod workspaces. Configure Unity Catalog, storage mounts, and service principals. Align team on branching strategy and CI/CD pipeline.</div>
+        <div class="timeline-tags"><span class="tag tag-cyan">Infrastructure</span><span class="tag tag-gray">2 weeks</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">SPRINTS 1–N</div>
+        <div class="timeline-title">Iterative Build</div>
+        <div class="timeline-desc">2-week sprints delivering Bronze → Silver → Gold layers incrementally. Daily standups, end-of-sprint demos to the customer, and continuous integration via Databricks Asset Bundles.</div>
+        <div class="timeline-tags"><span class="tag tag-red">Build</span><span class="tag tag-yellow">Test</span><span class="tag tag-cyan">Review</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">UAT</div>
+        <div class="timeline-title">User Acceptance Testing</div>
+        <div class="timeline-desc">Customer runs validation scripts against agreed acceptance criteria. Data quality checks, performance benchmarks, and security audit before sign-off.</div>
+        <div class="timeline-tags"><span class="tag tag-yellow">Validation</span><span class="tag tag-gray">Sign-off</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">GO-LIVE</div>
+        <div class="timeline-title">Production Deployment & Handover</div>
+        <div class="timeline-desc">Deploy to Prod via CI/CD. Deliver runbooks, monitoring dashboards and knowledge-transfer sessions. Transition to support mode with defined SLAs.</div>
+        <div class="timeline-tags"><span class="tag tag-red">Prod</span><span class="tag tag-cyan">Handover</span></div>
+      </div>
+    </div>
+    <div class="section-header" style="margin-top:8px">
+      <div class="section-title">Go-Live Checklist</div>
+      <div class="section-tag">PRE-PROD</div>
+    </div>
+    <div class="card" style="cursor:default">
+      <table class="data-table">
+        <thead><tr><th>Item</th><th>Owner</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>All DLT pipelines passing quality expectations</td><td>Data Engineer</td><td><span class="status-badge status-live">● Ready</span></td></tr>
+          <tr><td>Unity Catalog permissions reviewed</td><td>Platform Engineer</td><td><span class="status-badge status-live">● Ready</span></td></tr>
+          <tr><td>Monitoring & alerting configured</td><td>Ops</td><td><span class="status-badge status-dev">◐ In Progress</span></td></tr>
+          <tr><td>Runbook documentation complete</td><td>Tech Lead</td><td><span class="status-badge status-dev">◐ In Progress</span></td></tr>
+          <tr><td>Customer sign-off obtained</td><td>PM</td><td><span class="status-badge status-dep">○ Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

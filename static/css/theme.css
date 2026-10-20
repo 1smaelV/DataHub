@@ -1,0 +1,144 @@
+/* ==========================================================================
+   DataHub Design System: Theme Variables & Base Styles
+   ========================================================================== */
+
+:root {
+  --bg: #0a0c10;
+  --surface: #111318;
+  --card: #161a22;
+  --border: #1e2330;
+  --accent: #FF3621;
+  --accent2: #00C7C7;
+  --accent3: #FFB547;
+  --text: #e8eaf0;
+  --muted: #6b7280;
+  --spark: #FF3621;
+  --grid-color: rgba(255,54,33,0.04);
+  --code-bg: #0d1117;
+  --code-text: #c9d1d9;
+  --topbar-bg: rgba(10,12,16,0.8);
+}
+
+html.light {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --border: #e2e5eb;
+  --text: #111318;
+  --muted: #6b7280;
+  --grid-color: rgba(255,54,33,0.035);
+  --code-bg: #f0f2f5;
+  --code-text: #1f2937;
+  --topbar-bg: rgba(244,245,247,0.85);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* GRID BACKGROUND */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ==========================================================================
+   LUCIDE ICONS INTEGRATION
+   ========================================================================== */
+.lucide {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.icon-xs { width: 14px; height: 14px; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-md { width: 20px; height: 20px; }
+.icon-lg { width: 24px; height: 24px; }
+.icon-xl { width: 32px; height: 32px; }
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.nav-icon .lucide {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.9px;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+.nav-item:hover .nav-icon .lucide {
+  transform: translateX(1px);
+  stroke: var(--text);
+}
+
+.nav-item.active .nav-icon .lucide {
+  stroke: var(--accent);
+}
+
+.logo-icon .lucide {
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+  stroke-width: 2.3px;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-icon .lucide {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2px;
+}
+

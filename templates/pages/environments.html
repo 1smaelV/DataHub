@@ -1,0 +1,60 @@
+<div class="page" id="page-environments">
+    <div class="page-header">
+      <div class="page-title">Environments</div>
+      <div class="page-sub">Workspace configuration, access tiers and environment policies</div>
+    </div>
+    <div class="section-header">
+      <div class="section-title">Environment Overview</div>
+      <div class="section-tag">3-TIER MODEL</div>
+    </div>
+    <div class="cards-grid">
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(0,199,199,0.1)"><i data-lucide="flask-round" class="icon-sm"></i></div>
+        <h3>Development (Dev)</h3>
+        <p>Free experimentation space for engineers. Shared clusters allowed. No SLA. Data is synthetic or anonymized. Git branch: <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">feature/*</code></p>
+        <div class="card-footer"><span class="card-meta">ACCESS · ALL ENGINEERS</span></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(255,181,71,0.1)"><i data-lucide="microscope" class="icon-sm"></i></div>
+        <h3>Staging</h3>
+        <p>Production mirror for integration testing and UAT. Isolated clusters. Mirrors Prod data schema. Requires PR approval to deploy. Branch: <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">release/*</code></p>
+        <div class="card-footer"><span class="card-meta">ACCESS · TECH LEAD + QA</span></div>
+      </div>
+      <div class="card" style="cursor:default">
+        <div class="card-icon" style="background:rgba(255,54,33,0.1)"><i data-lucide="rocket" class="icon-sm" style="color:#a78bfa"></i></div>
+        <h3>Production (Prod)</h3>
+        <p>Live environment. All changes via CI/CD pipeline only. No direct notebook edits. Monitored 24/7. Branch: <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">main</code></p>
+        <div class="card-footer"><span class="card-meta">ACCESS · DATA ENG TEAM ONLY</span></div>
+      </div>
+    </div>
+    <div class="section-header">
+      <div class="section-title">Workspace Configuration Reference</div>
+    </div>
+    <div class="card" style="cursor:default">
+      <table class="data-table">
+        <thead><tr><th>Setting</th><th>Dev</th><th>Staging</th><th>Prod</th></tr></thead>
+        <tbody>
+          <tr><td>Cluster policy</td><td>Unrestricted</td><td>Standard</td><td>Enforced</td></tr>
+          <tr><td>Unity Catalog</td><td>dev catalog</td><td>staging catalog</td><td>prod catalog</td></tr>
+          <tr><td>Auto-terminate (min)</td><td>30</td><td>60</td><td>N/A (jobs only)</td></tr>
+          <tr><td>Network</td><td>Public</td><td>Private Endpoint</td><td>Private Endpoint</td></tr>
+          <tr><td>Secrets</td><td>Dev Vault</td><td>Staging Vault</td><td>Prod Vault</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section-header" style="margin-top:8px">
+      <div class="section-title">Environment Provisioning</div>
+    </div>
+    <div class="card" style="cursor:default">
+      <div class="code-block">
+        <div class="code-lang">Terraform</div>
+        <span class="comment"># Deploy a new workspace using Databricks Terraform provider</span><br>
+        <span class="kw">module</span> <span class="str">"databricks_workspace"</span> {<br>
+        &nbsp;&nbsp;source  = <span class="str">"databricks/examples/azure"</span><br>
+        &nbsp;&nbsp;<span class="var">env</span>     = <span class="str">"staging"</span><br>
+        &nbsp;&nbsp;<span class="var">region</span>  = <span class="str">"eastus2"</span><br>
+        &nbsp;&nbsp;<span class="var">catalog</span> = <span class="str">"staging_catalog"</span><br>
+        }
+      </div>
+    </div>
+  </div>

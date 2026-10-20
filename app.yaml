@@ -1,0 +1,5 @@
+# Databricks App Manifest
+# Defines startup command and execution settings for Databricks Apps
+command:
+  - "python"
+  - "app.py"

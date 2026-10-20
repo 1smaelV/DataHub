@@ -1,0 +1,121 @@
+<div class="page" id="page-quickref">
+    <div class="page-header">
+      <div class="page-title">Quick Reference</div>
+      <div class="page-sub">Commands, patterns and snippets for everyday Databricks development</div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px">
+      <div>
+        <div class="section-header" style="margin-bottom:12px"><div class="section-title">Delta Lake — Core Commands</div></div>
+        <div class="card" style="cursor:default">
+          <div class="code-block" style="margin:0">
+            <div class="code-lang">SQL</div>
+            <span class="comment">-- Read Delta table</span><br>
+            <span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="var">catalog.schema.table</span>;<br><br>
+            <span class="comment">-- Time travel</span><br>
+            <span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="var">table</span> <span class="kw">VERSION AS OF</span> <span class="num">5</span>;<br>
+            <span class="kw">SELECT</span> * <span class="kw">FROM</span> <span class="var">table</span> <span class="kw">TIMESTAMP AS OF</span> <span class="str">'2026-01-01'</span>;<br><br>
+            <span class="comment">-- Upsert (Merge)</span><br>
+            <span class="kw">MERGE INTO</span> <span class="var">target</span> t<br>
+            <span class="kw">USING</span> <span class="var">source</span> s <span class="kw">ON</span> t.id = s.id<br>
+            <span class="kw">WHEN MATCHED THEN UPDATE SET</span> *<br>
+            <span class="kw">WHEN NOT MATCHED THEN INSERT</span> *;<br><br>
+            <span class="comment">-- Optimize & Z-Order</span><br>
+            <span class="kw">OPTIMIZE</span> <span class="var">table</span> <span class="kw">ZORDER BY</span> (customer_id);<br><br>
+            <span class="comment">-- Vacuum old files (7 day default)</span><br>
+            <span class="kw">VACUUM</span> <span class="var">table</span> <span class="kw">RETAIN</span> <span class="num">168</span> <span class="kw">HOURS</span>;<br><br>
+            <span class="comment">-- View history</span><br>
+            <span class="kw">DESCRIBE HISTORY</span> <span class="var">table</span>;
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-header" style="margin-bottom:12px"><div class="section-title">PySpark — Common Patterns</div></div>
+        <div class="card" style="cursor:default">
+          <div class="code-block" style="margin:0">
+            <div class="code-lang">Python</div>
+            <span class="comment"># Read Delta</span><br>
+            <span class="var">df</span> = spark.read.table(<span class="str">"catalog.schema.table"</span>)<br><br>
+            <span class="comment"># Write Delta (overwrite)</span><br>
+            <span class="var">df</span>.write.format(<span class="str">"delta"</span>).mode(<span class="str">"overwrite"</span>)<br>
+            &nbsp;&nbsp;.option(<span class="str">"overwriteSchema"</span>, <span class="str">"true"</span>)<br>
+            &nbsp;&nbsp;.saveAsTable(<span class="str">"catalog.schema.table"</span>)<br><br>
+            <span class="comment"># Upsert via Python API</span><br>
+            <span class="kw">from</span> delta.tables <span class="kw">import</span> DeltaTable<br>
+            <span class="var">dt</span> = DeltaTable.forName(spark, <span class="str">"catalog.schema.target"</span>)<br>
+            <span class="var">dt</span>.alias(<span class="str">"t"</span>).merge(<span class="var">source</span>.alias(<span class="str">"s"</span>), <span class="str">"t.id = s.id"</span>)<br>
+            &nbsp;&nbsp;.whenMatchedUpdateAll()<br>
+            &nbsp;&nbsp;.whenNotMatchedInsertAll()<br>
+            &nbsp;&nbsp;.execute()<br><br>
+            <span class="comment"># Read secrets</span><br>
+            <span class="var">secret</span> = dbutils.secrets.get(<span class="str">"scope"</span>, <span class="str">"key"</span>)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:20px">
+      <div>
+        <div class="section-header" style="margin-bottom:12px"><div class="section-title">DLT — Pipeline Skeleton</div></div>
+        <div class="card" style="cursor:default">
+          <div class="code-block" style="margin:0">
+            <div class="code-lang">Python</div>
+            <span class="kw">import</span> dlt<br>
+            <span class="kw">from</span> pyspark.sql.functions <span class="kw">import</span> *<br><br>
+            <span class="comment"># Bronze — raw ingestion</span><br>
+            @dlt.table(name=<span class="str">"bronze_sales"</span>)<br>
+            <span class="kw">def</span> <span class="fn">bronze_sales</span>():<br>
+            &nbsp;&nbsp;<span class="kw">return</span> spark.readStream.format(<span class="str">"cloudFiles"</span>)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.option(<span class="str">"cloudFiles.format"</span>, <span class="str">"json"</span>)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.load(<span class="str">"/mnt/bronze/sales/"</span>)<br><br>
+            <span class="comment"># Silver — with expectations</span><br>
+            @dlt.table(name=<span class="str">"silver_sales"</span>)<br>
+            @dlt.expect_or_drop(<span class="str">"valid_id"</span>, <span class="str">"id IS NOT NULL"</span>)<br>
+            <span class="kw">def</span> <span class="fn">silver_sales</span>():<br>
+            &nbsp;&nbsp;<span class="kw">return</span> dlt.read_stream(<span class="str">"bronze_sales"</span>)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.dropDuplicates([<span class="str">"id"</span>])<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;.withColumn(<span class="str">"proc_ts"</span>, current_timestamp())
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-header" style="margin-bottom:12px"><div class="section-title">Widgets & Job Parameters</div></div>
+        <div class="card" style="cursor:default">
+          <div class="code-block" style="margin:0">
+            <div class="code-lang">Python</div>
+            <span class="comment"># Declare widget</span><br>
+            dbutils.widgets.text(<span class="str">"env"</span>, <span class="str">"dev"</span>)<br>
+            dbutils.widgets.dropdown(<span class="str">"layer"</span>, <span class="str">"silver"</span>,<br>
+            &nbsp;&nbsp;[<span class="str">"bronze"</span>, <span class="str">"silver"</span>, <span class="str">"gold"</span>])<br><br>
+            <span class="comment"># Read widget value</span><br>
+            <span class="var">env</span> = dbutils.widgets.get(<span class="str">"env"</span>)<br>
+            <span class="var">layer</span> = dbutils.widgets.get(<span class="str">"layer"</span>)<br><br>
+            <span class="comment"># Remove all widgets</span><br>
+            dbutils.widgets.removeAll()<br><br>
+            <span class="comment"># Run notebook with params</span><br>
+            dbutils.notebook.run(<br>
+            &nbsp;&nbsp;<span class="str">"./silver_transform"</span>,<br>
+            &nbsp;&nbsp;timeout_seconds=<span class="num">600</span>,<br>
+            &nbsp;&nbsp;arguments={<span class="str">"env"</span>: <span class="str">"prod"</span>}<br>
+            )
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header"><div class="section-title">Naming Convention Cheatsheet</div></div>
+    <div class="card" style="cursor:default">
+      <table class="data-table">
+        <thead><tr><th>Object</th><th>Pattern</th><th>Example</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Table — Bronze</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">brz_[source]_[entity]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">brz_crm_accounts</code></td><td>Raw, no transforms</td></tr>
+          <tr><td>Table — Silver</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">slv_[domain]_[entity]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">slv_sales_orders</code></td><td>Cleaned & enriched</td></tr>
+          <tr><td>Table — Gold</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">gld_[domain]_[metric]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">gld_sales_monthly_rev</code></td><td>Business aggregates</td></tr>
+          <tr><td>Notebook</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">[layer]_[domain]_[action]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">slv_sales_cleanse</code></td><td>snake_case</td></tr>
+          <tr><td>Job</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">[env]_[domain]_[freq]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">prod_sales_daily</code></td><td>env prefix required</td></tr>
+          <tr><td>Column — ID</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">id_[entity]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">id_customer</code></td><td>Always snake_case</td></tr>
+          <tr><td>Column — timestamp</td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px">ts_[event]</code></td><td><code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent2)">ts_created, ts_updated</code></td><td>UTC always</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

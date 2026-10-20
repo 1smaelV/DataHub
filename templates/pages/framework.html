@@ -1,0 +1,59 @@
+<div class="page" id="page-framework">
+    <div class="page-header">
+      <div class="page-title">Framework Architecture</div>
+      <div class="page-sub">How we structure Databricks internally</div>
+    </div>
+
+    <div class="alert alert-warn">
+      <span><i data-lucide="alert-triangle" class="icon-sm" style="color:var(--accent3)"></i></span>
+      <span>This framework is for <strong>internal use only</strong>. Do not share outside the organization.</span>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Version history</div>
+      <div class="section-tag">CHANGELOG</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot active"></div>
+        <div class="timeline-version">v3 · Current · Oct 2026</div>
+        <div class="timeline-title">Unity Catalog + Delta Live Tables Integration</div>
+        <div class="timeline-desc">Full migration to the centralized governance model with Unity Catalog. Pipelines redesigned using DLT to ensure declarative data quality.</div>
+        <div class="timeline-tags">
+          <span class="tag tag-red">Unity Catalog</span>
+          <span class="tag tag-cyan">DLT</span>
+          <span class="tag tag-yellow">New</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">v2.0 · Oct 2025</div>
+        <div class="timeline-title">Consolidated Medallion Architecture</div>
+        <div class="timeline-desc">Formal adoption of Bronze / Silver / Gold architecture across all projects. Standardization of naming conventions and partitioning.</div>
+        <div class="timeline-tags">
+          <span class="tag tag-cyan">Bronze/Silver/Gold</span>
+          <span class="tag tag-gray">Standard</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">v1.5 · Apr 2025</div>
+        <div class="timeline-title">MLflow Registry Integration</div>
+        <div class="timeline-desc">Centralized ML model registry. Lifecycle definition: Staging → Production → Archived.</div>
+        <div class="timeline-tags">
+          <span class="tag tag-red">MLflow</span>
+          <span class="tag tag-gray">ML</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-version">v1.0 · Jan 2024</div>
+        <div class="timeline-title">Base framework launch</div>
+        <div class="timeline-desc">First official version of the internal framework. Cluster templates, base notebooks and approved coding conventions.</div>
+        <div class="timeline-tags">
+          <span class="tag tag-gray">Foundation</span>
+        </div>
+      </div>
+    </div>
+  </div>

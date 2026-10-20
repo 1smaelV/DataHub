@@ -1,0 +1,57 @@
+<div class="page" id="page-design">
+    <div class="page-header">
+      <div class="page-title">Design</div>
+      <div class="page-sub">Technical design standards and architecture blueprints</div>
+    </div>
+    <div class="alert alert-warn">
+      <span><i data-lucide="alert-triangle" class="icon-sm" style="color:var(--accent3)"></i></span>
+      <span>All architecture designs must be reviewed and approved by the Lead Architect before moving to Delivery.</span>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="section-header" style="margin-bottom:14px"><div class="section-title">Design Principles</div></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card" style="cursor:default;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:20px"><i data-lucide="shield" class="icon-sm"></i></span>
+              <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Security by Default</div><div style="font-size:12px;color:var(--muted)">Unity Catalog, row/column-level security, private endpoints</div></div>
+            </div>
+          </div>
+          <div class="card" style="cursor:default;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:20px"><i data-lucide="ruler" class="icon-sm"></i></span>
+              <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Modular Design</div><div style="font-size:12px;color:var(--muted)">Reusable notebooks, parameterized jobs, no hard-coded paths</div></div>
+            </div>
+          </div>
+          <div class="card" style="cursor:default;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:20px"><i data-lucide="trending-up" class="icon-sm"></i></span>
+              <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Scalability</div><div style="font-size:12px;color:var(--muted)">Auto-scaling clusters, optimized partitioning, Z-Order indexing</div></div>
+            </div>
+          </div>
+          <div class="card" style="cursor:default;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span style="font-size:20px"><i data-lucide="repeat" class="icon-sm"></i></span>
+              <div><div style="font-size:13px;font-weight:700;margin-bottom:3px">Idempotency</div><div style="font-size:12px;color:var(--muted)">All pipelines must be safely re-runnable without duplicates</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-header" style="margin-bottom:14px"><div class="section-title">Design Deliverables</div></div>
+        <div class="card" style="cursor:default">
+          <table class="data-table">
+            <thead><tr><th>Artifact</th><th>Owner</th></tr></thead>
+            <tbody>
+              <tr><td>Architecture Diagram</td><td>Lead Architect</td></tr>
+              <tr><td>Data Flow Diagram</td><td>Data Engineer</td></tr>
+              <tr><td>Security Design Doc</td><td>Security + Architect</td></tr>
+              <tr><td>Cluster Sizing Sheet</td><td>Platform Engineer</td></tr>
+              <tr><td>Naming Convention Guide</td><td>Tech Lead</td></tr>
+              <tr><td>ERD / Data Model</td><td>Data Engineer</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

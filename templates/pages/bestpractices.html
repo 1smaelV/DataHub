@@ -1,0 +1,82 @@
+<div class="page" id="page-bestpractices">
+    <div class="page-header">
+      <div class="page-title">Best Practices</div>
+      <div class="page-sub">Do's and don'ts for notebooks, jobs, pipelines and code conventions</div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Notebooks</div>
+      <div class="section-tag">DEVELOPMENT</div>
+    </div>
+    <div class="two-col" style="margin-bottom:20px">
+      <div class="card" style="cursor:default;border-color:rgba(0,199,199,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="check-circle-2" class="icon-sm" style="color:var(--accent2);vertical-align:text-bottom"></i> Do</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Use a single responsibility per notebook — one notebook = one logical task</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Parameterize notebooks with <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">dbutils.widgets</code> instead of hard-coded values</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Add a header cell with: author, date, purpose, and input/output tables</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Version-control all notebooks via Git integration (Repos)</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Use <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">%run</code> for shared utility notebooks instead of copy-pasting code</li>
+        </ul>
+      </div>
+      <div class="card" style="cursor:default;border-color:rgba(255,54,33,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="x-circle" class="icon-sm" style="color:var(--accent);vertical-align:text-bottom"></i> Don't</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Never hard-code secrets, passwords or connection strings in notebooks</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't use <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">.collect()</code> on large DataFrames — it pulls all data to the driver</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Avoid running production logic from All-Purpose clusters; use Job Clusters</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't leave exploratory / scratch cells in notebooks destined for jobs</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Never edit notebooks directly in Prod — always deploy via CI/CD</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Delta Tables & Storage</div>
+      <div class="section-tag">DATA LAYER</div>
+    </div>
+    <div class="two-col" style="margin-bottom:20px">
+      <div class="card" style="cursor:default;border-color:rgba(0,199,199,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="check-circle-2" class="icon-sm" style="color:var(--accent2);vertical-align:text-bottom"></i> Do</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Partition tables by date columns (e.g. <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">year/month/day</code>) for large tables</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Run <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">OPTIMIZE</code> + <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">ZORDER</code> weekly on high-query Gold tables</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Enable <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">delta.enableChangeDataFeed</code> on tables used in streaming downstream</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Use <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">MERGE INTO</code> (upsert) for incremental loads instead of full overwrites</li>
+        </ul>
+      </div>
+      <div class="card" style="cursor:default;border-color:rgba(255,54,33,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="x-circle" class="icon-sm" style="color:var(--accent);vertical-align:text-bottom"></i> Don't</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't over-partition — avoid columns with very low cardinality (e.g. boolean)</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't skip <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">VACUUM</code> — old file accumulation increases storage costs significantly</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Avoid writing many small files — use <code style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent3)">repartition()</code> before writing</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Never drop or overwrite a Gold table without peer review approval</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Jobs & Orchestration</div>
+      <div class="section-tag">WORKFLOWS</div>
+    </div>
+    <div class="two-col">
+      <div class="card" style="cursor:default;border-color:rgba(0,199,199,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="check-circle-2" class="icon-sm" style="color:var(--accent2);vertical-align:text-bottom"></i> Do</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Always use Job Clusters (not All-Purpose) for scheduled production jobs</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Set retry policies (at least 2 retries) and alerting on all production jobs</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Use task dependencies to model pipeline DAGs within a single Workflow</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent2)">→</span> Deploy all jobs via Databricks Asset Bundles (DAB) — no manual UI creation in Prod</li>
+        </ul>
+      </div>
+      <div class="card" style="cursor:default;border-color:rgba(255,54,33,0.25)">
+        <div style="font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--accent);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px"><i data-lucide="x-circle" class="icon-sm" style="color:var(--accent);vertical-align:text-bottom"></i> Don't</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't schedule jobs without at least one email/Slack alert on failure</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Avoid using time-based cron if an event-trigger is possible and more reliable</li>
+          <li style="font-size:13px;color:var(--text);display:flex;gap:8px"><span style="color:var(--accent)">→</span> Don't create jobs without a runbook documenting manual recovery steps</li>
+        </ul>
+      </div>
+    </div>
+  </div>
