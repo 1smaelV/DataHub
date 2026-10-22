@@ -11,9 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Modular Styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css', v=asset_v) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css', v=asset_v) }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css', v=asset_v) }}">
   {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -31,12 +31,13 @@
   </div>
 
   <!-- Lucide Icons -->
-  <script src="{{ url_for('static', filename='js/vendor/lucide.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/vendor/lucide.min.js', v=asset_v) }}"></script>
   <!-- Modular Scripts -->
-  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/components.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/theme.js', v=asset_v) }}"></script>
+  <script src="{{ url_for('static', filename='js/navigation.js', v=asset_v) }}"></script>
+  <script src="{{ url_for('static', filename='js/components.js', v=asset_v) }}"></script>
+  <script src="{{ url_for('static', filename='js/certifications.js', v=asset_v) }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js', v=asset_v) }}"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -3,3 +3,9 @@
 command:
   - "python"
   - "app.py"
+
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "b3deebfdf07c0b8e"  # Serverless Starter Warehouse
+  - name: CERT_SCHEMA
+    value: "sandbox_shared.cnx_dbx_db"  # Schema with employees, emp_cert, certifications

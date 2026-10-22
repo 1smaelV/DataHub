@@ -89,16 +89,54 @@
       <div class="section-title">Certification Leaderboard</div>
       <div class="section-tag">INTERNAL</div>
     </div>
-    <div class="card" style="cursor:default">
+    <div class="card" style="cursor:default" id="cert-leaderboard">
+      <!-- Leaderboard toolbar: filters -->
+      <div class="lb-toolbar">
+        <div class="lb-search">
+          <i data-lucide="search" class="icon-xs"></i>
+          <input type="text" id="cert-filter-search" placeholder="Search collaborator or certification..." autocomplete="off">
+        </div>
+        <select id="cert-filter-cert" class="lb-select" aria-label="Filter by certification">
+          <option value="">All certifications</option>
+        </select>
+        <select id="cert-filter-status" class="lb-select" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option value="certified">Certified</option>
+          <option value="expiring">Expiring soon</option>
+          <option value="expired">Expired</option>
+        </select>
+        <button type="button" id="cert-filter-reset" class="btn-secondary lb-reset">Reset</button>
+      </div>
+
       <table class="data-table">
-        <thead><tr><th>Collaborator</th><th>Certification</th><th>Date</th><th>Badge</th></tr></thead>
-        <tbody>
-          <tr><td><strong>A. Rodriguez</strong></td><td>Data Engineer Associate</td><td style="font-family:'IBM Plex Mono',monospace;font-size:11px">2025-11-10</td><td><span class="tag tag-cyan"><i data-lucide="check" class="icon-xs" style="color:var(--accent2);stroke-width:3"></i> Certified</span></td></tr>
-          <tr><td><strong>M. Chen</strong></td><td>Associate Developer (Spark)</td><td style="font-family:'IBM Plex Mono',monospace;font-size:11px">2025-09-22</td><td><span class="tag tag-cyan"><i data-lucide="check" class="icon-xs" style="color:var(--accent2);stroke-width:3"></i> Certified</span></td></tr>
-          <tr><td><strong>P. Kumar</strong></td><td>ML Associate</td><td style="font-family:'IBM Plex Mono',monospace;font-size:11px">2026-01-15</td><td><span class="tag tag-cyan"><i data-lucide="check" class="icon-xs" style="color:var(--accent2);stroke-width:3"></i> Certified</span></td></tr>
-          <tr><td><strong>L. Torres</strong></td><td>Data Engineer Associate</td><td style="font-family:'IBM Plex Mono',monospace;font-size:11px">2026-02-28</td><td><span class="tag tag-cyan"><i data-lucide="check" class="icon-xs" style="color:var(--accent2);stroke-width:3"></i> Certified</span></td></tr>
-          <tr><td><strong>J. Smith</strong></td><td>Data Engineer Professional</td><td style="font-family:'IBM Plex Mono',monospace;font-size:11px">In progress</td><td><span class="tag tag-yellow"><i data-lucide="hourglass" class="icon-xs" style="vertical-align:text-bottom"></i> Studying</span></td></tr>
+        <thead>
+          <tr>
+            <th class="lb-sortable" data-sort="employee_name" aria-sort="none">Collaborator <span class="lb-sort-icon"></span></th>
+            <th class="lb-sortable" data-sort="certification_name" aria-sort="none">Certification <span class="lb-sort-icon"></span></th>
+            <th class="lb-sortable" data-sort="date_achieved" aria-sort="none">Date <span class="lb-sort-icon"></span></th>
+            <th class="lb-sortable" data-sort="status" aria-sort="none">Badge <span class="lb-sort-icon"></span></th>
+          </tr>
+        </thead>
+        <tbody id="cert-leaderboard-body">
+          <tr><td colspan="4" style="color:var(--muted)">Loading certifications...</td></tr>
         </tbody>
       </table>
+
+      <!-- Leaderboard footer: pagination -->
+      <div class="lb-footer">
+        <div class="lb-info" id="cert-page-info"></div>
+        <div class="lb-pager">
+          <label class="lb-page-size">Rows
+            <select id="cert-page-size" class="lb-select">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </label>
+          <button type="button" class="btn-secondary lb-page-btn" id="cert-page-prev" aria-label="Previous page"><i data-lucide="chevron-left" class="icon-xs"></i></button>
+          <span class="lb-page-num" id="cert-page-num"></span>
+          <button type="button" class="btn-secondary lb-page-btn" id="cert-page-next" aria-label="Next page"><i data-lucide="chevron-right" class="icon-xs"></i></button>
+        </div>
+      </div>
     </div>
   </div>
